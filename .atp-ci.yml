@@ -7,7 +7,7 @@ build-linux-x64:
   stage: build
   before_script:
     - pacman-key --init
-    - pacman -Syu --needed --noconfirm ninja cmake gcc gcc-libs glibc extra-cmake-modules libplasma kconfig kcmutils qt6-base
+    - pacman -Syu --needed --noconfirm ninja cmake gcc gcc-libs glibc extra-cmake-modules libplasma kconfig kcmutils qt6-base libksysguard plasma-workspace
   script:
     - export DESTDIR=out
     - cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_TESTING=ON -B build .
