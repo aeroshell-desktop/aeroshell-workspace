@@ -17,7 +17,7 @@ include(KDECompilerSettings NO_POLICY_SCOPE)
 include(FeatureSummary)
 
 find_package(Qt6 REQUIRED COMPONENTS
-    Core Qml Quick
+    Core Qml Quick DBus
 )
 
 find_package(KF6 REQUIRED COMPONENTS
@@ -34,7 +34,8 @@ find_package(PlasmaActivitiesStats REQUIRED)
 add_subdirectory(aerothemeplasma-kcmloader)
 add_subdirectory(fontconfig)
 add_subdirectory(mimetype)
-add_subdirectory(libtaskshelper)
+add_subdirectory(libtaskmanager)
+add_subdirectory(libshowdesktop)
 
 install()
 
