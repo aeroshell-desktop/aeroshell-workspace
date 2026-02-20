@@ -1,2 +1,2 @@
-module aerothemeplasma.taskmanager
+module aeroshell.taskmanager
 plugin taskmanagerplugin

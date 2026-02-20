@@ -16,6 +16,6 @@ target_link_libraries(showdesktopplugin
         KF6::WindowSystem
 )
 
-install(TARGETS showdesktopplugin DESTINATION ${KDE_INSTALL_QMLDIR}/aerothemeplasma/showdesktop)
-install(FILES qmldir DESTINATION ${KDE_INSTALL_QMLDIR}/aerothemeplasma/showdesktop)
+install(TARGETS showdesktopplugin DESTINATION ${KDE_INSTALL_QMLDIR}/aeroshell/showdesktop)
+install(FILES qmldir DESTINATION ${KDE_INSTALL_QMLDIR}/aeroshell/showdesktop)
 

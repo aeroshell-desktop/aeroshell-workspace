@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(aerothemeplasma-workspace)
+project(aeroshell-workspace)
 
 set(KF6_MIN_VERSION "6.0.0")
 
@@ -31,7 +31,7 @@ find_package(Plasma REQUIRED)
 find_package(PlasmaActivities REQUIRED)
 find_package(PlasmaActivitiesStats REQUIRED)
 
-add_subdirectory(aerothemeplasma-kcmloader)
+add_subdirectory(aeroshell-kcmloader)
 add_subdirectory(fontconfig)
 add_subdirectory(mimetype)
 add_subdirectory(libtaskmanager)

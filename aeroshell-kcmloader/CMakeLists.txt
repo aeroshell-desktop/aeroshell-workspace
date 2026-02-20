@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.19)
-project(aerothemeplasma-kcmloader LANGUAGES CXX)
+project(aeroshell-kcmloader LANGUAGES CXX)
 
 set(QT_MIN_VERSION "6.8.0")
 set(KF6_MIN_VERSION "6.14.0")
@@ -26,7 +26,7 @@ find_package(Qt6 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
 
 qt_standard_project_setup()
 
-qt_add_executable(aerothemeplasma-kcmloader
+qt_add_executable(aeroshell-kcmloader
     main.cpp
 )
 
@@ -34,14 +34,14 @@ find_package(KF6 ${KF6_MIN_VERSION} REQUIRED COMPONENTS
     KCMUtils
 )
 
-target_link_libraries(aerothemeplasma-kcmloader
+target_link_libraries(aeroshell-kcmloader
     PRIVATE Qt::Core
     KF6::KCMUtils
 )
 
 include(GNUInstallDirs)
 
-install(TARGETS aerothemeplasma-kcmloader
+install(TARGETS aeroshell-kcmloader
     BUNDLE  DESTINATION .
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}

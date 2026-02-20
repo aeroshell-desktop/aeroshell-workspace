@@ -1,2 +1,2 @@
-module aerothemeplasma.showdesktop
+module aeroshell.showdesktop
 plugin showdesktopplugin

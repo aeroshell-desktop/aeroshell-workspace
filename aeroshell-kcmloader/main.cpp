@@ -9,7 +9,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    a.setApplicationName("aerothemeplasma-kcmloader");
+    a.setApplicationName("aeroshell-kcmloader");
     a.setApplicationDisplayName("Personalize");
     QString modulePath;
     if(argc > 2) {

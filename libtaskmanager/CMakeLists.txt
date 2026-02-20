@@ -14,7 +14,7 @@ kconfig_add_kcfg_files(taskmanagerplugin kactivitymanagerd_plugins_settings.kcfg
 ecm_qt_declare_logging_category(taskmanagerplugin
     HEADER taskmanager-debug.h
     IDENTIFIER TASKMANAGER_DEBUG
-    CATEGORY_NAME aerothemeplasma.taskmanager
+    CATEGORY_NAME aeroshell.taskmanager
 )
 
 target_link_libraries(taskmanagerplugin
@@ -38,5 +38,5 @@ target_link_libraries(taskmanagerplugin
 )
 
 
-install(TARGETS taskmanagerplugin DESTINATION ${KDE_INSTALL_QMLDIR}/aerothemeplasma/taskmanager)
-install(FILES qmldir DESTINATION ${KDE_INSTALL_QMLDIR}/aerothemeplasma/taskmanager)
+install(TARGETS taskmanagerplugin DESTINATION ${KDE_INSTALL_QMLDIR}/aeroshell/taskmanager)
+install(FILES qmldir DESTINATION ${KDE_INSTALL_QMLDIR}/aeroshell/taskmanager)
