@@ -14,6 +14,8 @@ set(PROJECT_VERSION_MAJOR 6)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
+# no
+remove_definitions(-DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM_ASCII -DQT_USE_QSTRINGBUILDER)
 include(FeatureSummary)
 
 find_package(Qt6 REQUIRED COMPONENTS
@@ -34,8 +36,10 @@ find_package(PlasmaActivitiesStats REQUIRED)
 add_subdirectory(aeroshell-kcmloader)
 add_subdirectory(fontconfig)
 add_subdirectory(mimetype)
+
 add_subdirectory(libtaskmanager)
 add_subdirectory(libshowdesktop)
+add_subdirectory(libaeroshellutils)
 
 install()
 
