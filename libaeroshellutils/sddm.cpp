@@ -6,20 +6,91 @@
 
 #include "sddm.h"
 
+#include <QStandardPaths>
+#include <QFile>
+
 #include <KConfigGroup>
+
+static const QString s_cfgPath{"/etc/sddm.conf.d/kde_settings.conf"};
 
 SDDM::SDDM(QObject *parent)
     : QObject(parent)
-    , m_cfg{KSharedConfig::openConfig("/etc/sddm.conf.d/kde_settings.conf")}
+    , m_cfg{KSharedConfig::openConfig(s_cfgPath, KConfig::SimpleConfig)}
+    , m_cfgWatcher{new QFileSystemWatcher({s_cfgPath}, this)}
 {
-    KConfigGroup group = m_cfg->group("Theme");
-    m_currentSDDMTheme = group.readEntry("Current", "sddm-theme-mod");
+    reloadProperties();
+    connect(m_cfgWatcher, &QFileSystemWatcher::fileChanged, this, &SDDM::reloadProperties);
 }
 
 SDDM::~SDDM() = default;
 
 
-QString SDDM::currentSDDMTheme()
-{ return m_currentSDDMTheme; }
+QString SDDM::currentTheme()
+{ return m_currentTheme; }
+
+QString SDDM::currentBackground()
+{ return m_currentBackground; }
+
+
+void SDDM::reloadProperties()
+{
+    QString prev{};
+    KConfigGroup cg;
+
+    m_cfg->reparseConfiguration();
+
+    {
+        cg = m_cfg->group("Theme");
+        prev = m_currentTheme;
+        m_currentTheme = cg.readEntry("Current", "sddm-theme-mod");
+        Q_EMIT currentThemeChanged(prev);
+    }
+
+    {
+        QStringList paths = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "sddm", QStandardPaths::LocateDirectory);
+
+        qDebug() << paths;
+
+        if(!paths.isEmpty()) {
+            QString path = paths.last();
+
+            qDebug() << path;
+
+            if(!(path.startsWith("/home") || path.startsWith("~/"))) {
+                path += "/themes/" + m_currentTheme + "/";
+
+                qDebug() << path;
+
+                if(QFile::exists(path + "background")) {
+                    prev = m_currentBackground;
+                    m_currentBackground = path + "background";
+                    Q_EMIT currentBackgroundChanged(prev);
+
+                } else if(QFile::exists(path + "default-background")) {
+                    prev = m_currentBackground;
+                    m_currentBackground = path + "default-background";
+                    Q_EMIT currentBackgroundChanged(prev);
+
+                } else { // non-aeroshell sddm themes
+                    KSharedConfig::Ptr conf = KSharedConfig::openConfig(path + "theme.conf.user");
+                    if(conf) {
+                        conf->addConfigSources({path + "theme.conf"});
+                        cg = conf->group("General");
+
+                        QString bg = cg.readEntry("background", "");
+
+                        prev = m_currentBackground;
+                        if(bg.startsWith("./") || !bg.startsWith("/")) {
+                            m_currentBackground = path + bg;
+                        } else {
+                            m_currentBackground = bg;
+                        }
+                        Q_EMIT currentBackgroundChanged(prev);
+                    }
+                }
+            }
+        }
+    }
+}
 
 #include "moc_sddm.cpp"
