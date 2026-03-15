@@ -10,6 +10,8 @@
 #include <QObject>
 #include <qqmlintegration.h>
 
+#include <QFileSystemWatcher>
+
 #include <KSharedConfig>
 
 class SDDM : public QObject
@@ -18,20 +20,30 @@ class SDDM : public QObject
     QML_SINGLETON
     QML_ELEMENT
 
-    Q_PROPERTY(QString currentSDDMTheme READ currentSDDMTheme NOTIFY currentSDDMThemeChanged)
+    Q_PROPERTY(QString currentTheme READ currentTheme NOTIFY currentThemeChanged)
+    Q_PROPERTY(QString currentBackground READ currentBackground NOTIFY currentBackgroundChanged)
 
 public:
     explicit SDDM(QObject *parent = nullptr);
     ~SDDM() override;
 
-    QString currentSDDMTheme();
+    QString currentTheme();
+    QString currentBackground();
 
 Q_SIGNALS:
-    void currentSDDMThemeChanged(QString previous);
+    void currentThemeChanged(QString previous);
+    void currentBackgroundChanged(QString previous);
+
+private Q_SLOTS:
+    void reloadProperties();
 
 private:
     KSharedConfig::Ptr m_cfg;
-    QString m_currentSDDMTheme{};
+    QFileSystemWatcher *m_cfgWatcher;
+
+    QString m_currentTheme{};
+
+    QString m_currentBackground{};
 
 };
 
