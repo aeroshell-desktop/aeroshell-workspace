@@ -77,8 +77,14 @@ void SDDM::reloadProperties()
                         conf->addConfigSources({path + "theme.conf"});
                         cg = conf->group("General");
 
+                        QString bg = cg.readEntry("background", "");
+
                         prev = m_currentBackground;
-                        m_currentBackground = cg.readEntry("background", "");
+                        if(bg.startsWith("./") || !bg.startsWith("/")) {
+                            m_currentBackground = path + bg;
+                        } else {
+                            m_currentBackground = bg;
+                        }
                         Q_EMIT currentBackgroundChanged(prev);
                     }
                 }
