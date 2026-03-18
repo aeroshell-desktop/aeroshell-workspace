@@ -13,6 +13,11 @@
 
 int main(int argc, char **argv)
 {
+    QByteArray start = qgetenv("USE_AEROSHELL_SPLASH");
+    // in case we got started through the xdg autostart entry
+    // will happen in a systemd-less distribution
+    if(start == QByteArrayLiteral("0") || start.isEmpty()) return 0;
+
     // read ksplashrc as config file, not ksplashqmlrc
     QCoreApplication::setAttribute(Qt::AA_DisableSessionManager);
     QCoreApplication::setApplicationName(QStringLiteral("ksplash"));

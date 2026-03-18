@@ -2,7 +2,7 @@ set(aeroshell-splash_SRCS
     main.cpp
     splashapp.cpp splashapp.h
     splashwindow.cpp splashwindow.h
-   )
+)
 
 add_executable(aeroshell-splash ${aeroshell-splash_SRCS})
 

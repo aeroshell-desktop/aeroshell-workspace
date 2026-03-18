@@ -38,9 +38,16 @@ find_package(PlasmaQuick REQUIRED)
 find_package(PlasmaActivities REQUIRED)
 find_package(PlasmaActivitiesStats REQUIRED)
 
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/config-dirs.h.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/config-dirs.h"
+    @ONLY
+)
+
 add_subdirectory(aeroshell-kcmloader)
 add_subdirectory(aeroshell-splash)
 
+add_subdirectory(autostart)
 add_subdirectory(fontconfig)
 add_subdirectory(mimetype)
 
