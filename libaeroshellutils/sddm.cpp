@@ -31,7 +31,8 @@ QString SDDM::currentTheme()
 QString SDDM::currentBackground()
 { return m_currentBackground; }
 
-
+// this is a mess lmfao
+// TODO: clean this mess of a code
 void SDDM::reloadProperties()
 {
     QString prev{};
@@ -49,17 +50,11 @@ void SDDM::reloadProperties()
     {
         QStringList paths = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "sddm", QStandardPaths::LocateDirectory);
 
-        qDebug() << paths;
-
         if(!paths.isEmpty()) {
             QString path = paths.last();
 
-            qDebug() << path;
-
             if(!(path.startsWith("/home") || path.startsWith("~/"))) {
                 path += "/themes/" + m_currentTheme + "/";
-
-                qDebug() << path;
 
                 if(QFile::exists(path + "background")) {
                     prev = m_currentBackground;
