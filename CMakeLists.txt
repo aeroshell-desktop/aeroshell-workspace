@@ -8,7 +8,7 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 
 include(ECMQtDeclareLoggingCategory)
 
-set(PROJECT_VERSION "6.6.5")
+set(PROJECT_VERSION "6.7.0")
 set(PROJECT_VERSION_MAJOR 6)
 
 include(KDEInstallDirs)
