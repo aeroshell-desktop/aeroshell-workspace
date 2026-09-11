@@ -8,7 +8,7 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 
 include(ECMQtDeclareLoggingCategory)
 
-set(PROJECT_VERSION "6.6.5")
+set(PROJECT_VERSION "6.7.5")
 set(PROJECT_VERSION_MAJOR 6)
 
 include(KDEInstallDirs)
@@ -29,9 +29,9 @@ find_package(KF6 REQUIRED COMPONENTS
 find_package(KSysGuard CONFIG REQUIRED)
 find_package(LibNotificationManager CONFIG REQUIRED)
 
-find_package(Plasma 6.6.5 REQUIRED)
-find_package(PlasmaActivities 6.6.5 REQUIRED)
-find_package(PlasmaActivitiesStats 6.6.5 REQUIRED)
+find_package(Plasma ${PROJECT_VERSION} REQUIRED)
+find_package(PlasmaActivities ${PROJECT_VERSION} REQUIRED)
+find_package(PlasmaActivitiesStats ${PROJECT_VERSION} REQUIRED)
 
 add_subdirectory(aeroshell-kcmloader)
 add_subdirectory(fontconfig)
@@ -41,7 +41,8 @@ add_subdirectory(libtaskmanager)
 add_subdirectory(libshowdesktop)
 add_subdirectory(libaeroshellutils)
 
+install(FILES aeroshell.desktop DESTINATION ${KDE_INSTALL_DATADIR}/systemsettings/categories)
+
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
 install()
-
