@@ -2,5 +2,6 @@
 Description=AeroShell Splash Screen
 
 [Service]
+ExecStart=
 ExecStart=/bin/sh -c "if [ ! -z $USE_AEROSHELL_SPLASH ]; then @CMAKE_INSTALL_FULL_BINDIR@/aeroshell-splash; else @CMAKE_INSTALL_FULL_BINDIR@/ksplashqml; fi"
 
