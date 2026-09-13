@@ -1,0 +1,33 @@
+/*
+    SPDX-FileCopyrightText: 2011 Ivan Cukic <ivan.cukic(at)kde.org>
+
+    SPDX-License-Identifier: GPL-2.0-or-later
+*/
+
+#include "splashapp.h"
+#include <QQuickWindow>
+#include <QSurfaceFormat>
+
+#include <QFile>
+#include <QTextStream>
+
+int main(int argc, char **argv)
+{
+    QByteArray start = qgetenv("USE_AEROSHELL_SPLASH");
+    // in case we got started through the xdg autostart entry
+    // will happen in a systemd-less distribution
+    if(start == QByteArrayLiteral("0") || start.isEmpty()) return 0;
+
+    // read ksplashrc as config file, not ksplashqmlrc
+    QCoreApplication::setAttribute(Qt::AA_DisableSessionManager);
+    QCoreApplication::setApplicationName(QStringLiteral("ksplash"));
+
+    auto format = QSurfaceFormat::defaultFormat();
+    format.setOption(QSurfaceFormat::ResetNotification);
+    QSurfaceFormat::setDefaultFormat(format);
+
+    QQuickWindow::setDefaultAlphaBuffer(true);
+    SplashApp app(argc, argv);
+
+    return app.exec();
+}

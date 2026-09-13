@@ -17,6 +17,7 @@ include(KDECompilerSettings NO_POLICY_SCOPE)
 # no
 remove_definitions(-DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM_ASCII -DQT_USE_QSTRINGBUILDER)
 include(FeatureSummary)
+include(ECMConfiguredInstall)
 
 find_package(Qt6 REQUIRED COMPONENTS
     Core Qml Quick DBus
@@ -24,16 +25,28 @@ find_package(Qt6 REQUIRED COMPONENTS
 
 find_package(KF6 REQUIRED COMPONENTS
     Config I18n KIO Notifications
-    Service WindowSystem
+    Service WindowSystem Package
 )
 find_package(KSysGuard CONFIG REQUIRED)
 find_package(LibNotificationManager CONFIG REQUIRED)
+find_package(LayerShellQt REQUIRED)
 
+find_package(LibKWorkspace REQUIRED)
 find_package(Plasma ${PROJECT_VERSION} REQUIRED)
+find_package(PlasmaQuick ${PROJECT_VERSION} REQUIRED)
 find_package(PlasmaActivities ${PROJECT_VERSION} REQUIRED)
 find_package(PlasmaActivitiesStats ${PROJECT_VERSION} REQUIRED)
 
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/config-dirs.h.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/config-dirs.h"
+    @ONLY
+)
+
 add_subdirectory(aeroshell-kcmloader)
+add_subdirectory(aeroshell-splash)
+
+add_subdirectory(autostart)
 add_subdirectory(fontconfig)
 add_subdirectory(mimetype)
 
