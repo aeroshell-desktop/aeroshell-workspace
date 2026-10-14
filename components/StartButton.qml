@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Layouts
 
 import org.kde.plasma.core as PlasmaCore
 
@@ -105,7 +106,12 @@ Item {
                 property alias animate: buttonWindowItem.animate
 
                 function position() {
-                    var pos = root.mapToGlobal(root.x, root.y);
+                    var pos = root.parent.mapToGlobal(root.x, root.y);
+
+                    if (pos.y + height > Screen.height) {
+                        pos.y = Screen.height - height;
+                    }
+
                     x = pos.x;
                     y = pos.y;
                 }
@@ -124,13 +130,20 @@ Item {
                 visible: true
 
                 mainItem: Item {
-                    width: buttonWindowItem.width
-                    height: buttonWindowItem.height
+                    width: buttonWindowItem.width < 100 ? 100 : buttonWindowItem.width
+                    height: buttonWindowItem.height < 100 ? 100 : buttonWindowItem.height
 
-                    Private.StartButtonItem {
-                        id: buttonWindowItem
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.verticalCenterOffset: 5
+                    Item {
+                        anchors.bottom: parent.bottom
+
+                        width: buttonWindowItem.width
+                        height: root.height
+
+                        Private.StartButtonItem {
+                            id: buttonWindowItem
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.verticalCenterOffset: -3
+                        }
                     }
                 }
 
