@@ -19,6 +19,7 @@ Item {
     onTextureSourceChanged: repositionWindow();
 
     property bool floating: false
+    property int floatingOffset: -3
     property int buttonWidthOverride: 0
     onButtonWidthOverrideChanged: repositionWindow();
 
@@ -142,7 +143,7 @@ Item {
                         Private.StartButtonItem {
                             id: buttonWindowItem
                             anchors.verticalCenter: parent.verticalCenter
-                            anchors.verticalCenterOffset: -3
+                            anchors.verticalCenterOffset: root.floatingOffset
                         }
                     }
                 }
